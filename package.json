@@ -1,0 +1,43 @@
+{
+  "name": "syronjs",
+  "module": "index.ts",
+  "version": "0.0.1",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "description": "SyronJS is a modern component based framework for building semi-complex web applications.",
+  "workspaces": [
+    "packages/runtime",
+    "packages/compiler",
+    "packages/loader",
+    "packages/cli"
+  ],
+  "author": {
+    "name": "Cyrus N."
+  },
+  "keywords": [
+    "syronjs",
+    "ssr",
+    "frontend",
+    "web",
+    "framework"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cyrus-0101/syronjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Cyrus-0101/syronjs/issues"
+  },
+  "homepage": "https://syronjs.github.io/",
+  "license": "MIT",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir ./dist",
+    "dev": "bun run src/index.ts",
+    "serve:examples": "bunx http-server . -o ./examples/ -bg"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
