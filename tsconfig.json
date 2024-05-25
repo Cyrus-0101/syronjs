@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
-    // Enable latest features
-    "lib": ["ESNext", "DOM"],
-    "target": "ESNext",
+    "esModuleInterop": true,
     "module": "ESNext",
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
-
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -15,7 +12,6 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-
     // Best practices
     "strict": true,
     "skipLibCheck": true,
@@ -24,10 +20,17 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
-
     // Some stricter flags (disabled by default)
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["eslint.config.js", "packages/**/*"],
-  "exclude": ["node_modules", "dist", "build", "coverage"]
+  "include": [
+    "packages/**/*"
+  ],
+  "exclude": [
+    ".eslintrc.cjs",
+    "node_modules",
+    "dist",
+    "build",
+    "coverage"
+  ]
 }
