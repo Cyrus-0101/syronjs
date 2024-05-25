@@ -28,5 +28,6 @@
     // Some stricter flags (disabled by default)
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["eslint.config.js", "packages/**/*"]
+  "include": ["eslint.config.js", "packages/**/*"],
+  "exclude": ["node_modules", "dist", "build", "coverage"]
 }
