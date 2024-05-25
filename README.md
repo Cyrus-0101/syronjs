@@ -190,3 +190,49 @@
 
 - The HTML instructs the browser to load the application JS and CSS files, once JS code is parsed, the framework code connects the existing HTML (produced in the server), to the component's vDOM and attach event handlers. Afterwards can the user interact with the page.
 - When a user interacts with the page, the frameworks event handlers are triggered and the framework patches parts of the HTML that need to be updated. All this happens in the browser.
+
+## Virtual DOM
+
+- In [PR #1](https://github.com/Cyrus-0101/syronjs/pull/1), [examples/vanilla/todo](./examples/vanilla/todo/todo.js), we can see how mixing application logic and DOM manipulation can be a pain. The code is hard to read and maintain, and it's easy to introduce bugs.
+
+> Just like a virtual machine, the vDOM `mimics` the actual DOM. The DOM is an in-memory tree of JS objects representing the HTML page.
+
+- The nodes in the actual DOM are heavy objects that have hundreds of properties , whereas the virtual nodes are lightweight objects that have only the properties needed to render the view. Virtual Nodes are easy to create and manipulate.
+
+-  If for every event resulting from the user interacting with the application, we have to implement not only the business logic—the one that gives value to the application—but also the code to update the DOM, the codebase becomes a hard-to-maintain mess, anightmare if you may.
+- From the todo instance we can see DOM manipulation code is `very imperative` code, which describes how to do something step by step. It's also a low level operation that requires a concrete understandting of the Document API, and sits below the application logic.
+- Picture an architect, his/her work only revolves in designing the house, imagine if he had to build the house, manage the builders every single step of the way. Probably the most inefficient way to build a house.
+- For the sake of productivity the architect only focuses on `what` needs to be build and let's the construction company take care of the `how`.
+
+- In this [PR #2](https://github.com/Cyrus-0101/syronjs/pull/2), we want to accomplish (Separation of concerns):
+1. Separation of `Application Code` - code that describes the view, from the `Framework Code` - code that uses the Document API to manipulate the DOM and create the view.
+- Here is what our starting structure will look like:
+
+runtime
+    └── src
+        ├── utils
+        │   └── arrays.ts
+        ├── h.ts
+        └── index.ts
+
+- We need to represent 3 types of nodes in the vDOM:
+1. `Element Nodes` - Represents a HTML element that has a tag name such as `div`, `p` etc.
+1. `Text Nodes` - Represents a text node that has a text value.
+1. `Fragment Node` - Represent a collection of nodes that don't have a parent node until attached to the DOM.
+
+- In our `h` file we define our constants and types.
+
+### Element Nodes
+- Represent HTML elements defined to structure your web pages, eg `<h1>`, `<p>` etc. We'll create a function `h()` short for hyperscript or [syronjs.createElement()](### "similar to React.createElement()"), that creates an element node.
+
+- Given some child nodes might come as null, we'll filter them out, before transforming them to Virtual nodes. They should not be rendered, and should be removed from the array of children.
+
+### Fragment Nodes
+- A fragment node is a collection of multiple nodes that need to be attached to the DOM together, but have no parent node. They are simply a container for an array of virtual nodes. They exist in the Document API, represented by the `DocumentFragment` object and can be created using the `document.createDocumentFragment()` method.
+
+- `hFragment()` will create fragment virtual nodes. Its function signature will be similar to `h()` but will return a fragment node, we filter null values from the array and then map strings in the children array to text virtual nodes.
+
+### Components
+- Components in syronjs will be a mini-app of its own; have its own internal state & lifecycle, in charge of rendering a part of the view. It communicates with the rest of the  application by emitting events and receive props (data passed to the component from outside), re-rendering its view when a new set of props is passed to it.
+
+- As of [PR #2]()
