@@ -3,6 +3,7 @@
     "esModuleInterop": true,
     "module": "ESNext",
     "moduleDetection": "force",
+    "target": "ESNext",
     "jsx": "react-jsx",
     "allowJs": true,
     // Bundler mode
