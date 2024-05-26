@@ -7,7 +7,7 @@ import { type VNode } from './types'
  * @returns Array<VNode>
  * @description withoutNulls(arr: Array<VNode>) - takes an array and returns a new array with all null values removed.
  */
-export const withoutNulls = (arr: Array<VNode>): VNode[] => {
+export const withoutNulls = (arr: VNode[]): VNode[] => {
     return arr.filter((item) => item != null)
 }
 
@@ -19,7 +19,7 @@ export const withoutNulls = (arr: Array<VNode>): VNode[] => {
  */
 export const lipsum = (num: number): VNode  => {
     const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-    return hFragment(Array(num).fill(h('p', {}, [hString(lorem)])))
+    return hFragment(Array<VNode>(num).fill(h('p', {}, [hString(lorem)])))
 }
 
 /**
