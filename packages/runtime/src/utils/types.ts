@@ -50,7 +50,7 @@ export interface VNode {
     /**
      * Represents the real DOM node.
      */
-    el?: Node | HTMLElement | undefined;
+    el?: Node | HTMLElement | null;
     /**
      * Represents the event listeners of the virtual DOM node.
      */
