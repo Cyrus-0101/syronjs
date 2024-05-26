@@ -10,7 +10,7 @@
   "scripts": {
     "build": "bun build src/index.ts --outdir ./dist",
     "dev": "bun run src/index.ts",
-    "lint": "bunx --bun eslint --fix -c eslint.config.js",
+    "lint": "bunx --bun eslint --fix -c eslint.config.js --ignore-pattern 'dist' --ignore-pattern 'examples/vanilla'",
     "serve:examples": "bunx http-server . -o ./examples/ -bg"
   },
   "keywords": [
@@ -32,15 +32,20 @@
   "devDependencies": {
     "@eslint/js": "^9.3.0",
     "@types/bun": "latest",
+    "@types/eslint-config-prettier": "^6.11.3",
+    "@types/eslint__js": "",
     "eslint": "9.x",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-jsdoc": "^48.2.6",
     "globals": "^15.3.0",
     "prettier": "^3.2.5",
     "typescript-eslint": "^7.10.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "syronjs": "."
   }
 }

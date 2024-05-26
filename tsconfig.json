@@ -26,15 +26,14 @@
   },
   "typeRoots": ["node_modules/@types", "@types"],
   "include": [
-    "packages/**/*"
-  ],
-  "exclude": [
+    "packages",
     "eslint.config.js",
     "prettier.config.js",
-    "vanilla",
-    "node_modules",
-    "dist",
-    "build",
     "coverage"
+  ],
+  "exclude": [
+    "node_modules",
+    "examples/vanilla",
+    "dist",
   ]
 }

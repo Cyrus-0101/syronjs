@@ -2,7 +2,7 @@
 
 /** @type {import("prettier").Config} */
 export default {
-    trailingComma: "es5",
+    trailingComma: 'es5',
     tabWidth: 8,
     semi: false,
     singleQuote: true,
