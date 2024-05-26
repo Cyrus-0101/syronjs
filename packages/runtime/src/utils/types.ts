@@ -50,7 +50,7 @@ export interface VNode {
     /**
      * Represents the real DOM node.
      */
-    el?: Node | HTMLElement | undefined;
+    el?: Node | HTMLElement | null;
     /**
      * Represents the event listeners of the virtual DOM node.
      */
@@ -110,3 +110,71 @@ export interface ElementAttributes {
     style?: StyleAttributes
     [attr: string]: unknown
 }
+
+/**
+ * Represents the payload of a command.
+ * 
+ * @interface Payload
+ */
+export interface Payload {
+    /**
+     * Represents the name of the command.
+     */
+    name: string;
+    /**
+     * Represents the data of the command.
+     */
+    data?: object;
+}
+
+/**
+ * Represents a handler function.
+ * 
+ * @type {Handler}
+ */
+export type Handler = (payload: Payload) => void
+
+/**
+ * Represents a command name.
+ * 
+ * @interface State
+ * 
+ */
+export type State = Record<string, unknown>;
+
+/**
+ * Represents a view function - renderer.
+ * 
+ * @type {ViewFunction}
+ */
+export type ViewFunction = (state: State, emit: Function) => VNode
+
+/**
+ * Represents a dispatcher.
+ * 
+ * @interface Dispatcher
+ */
+export interface App {
+    /**
+     * Mounts the application.
+     * 
+     * @param {HTMLElement | null} _parentEl - The parent element to mount the application.
+     */
+    mount: (_parentEl: HTMLElement | null) => void
+}
+
+/**
+ * Represents a reducer function.
+ * 
+ * @type ReducerFunction
+ * 
+ * 
+ */
+export type ReducerFunction = (state: State, payload: Payload) => State
+
+/**
+ * Represents a record of reducers.
+ * 
+ * @type Reducers 
+ */
+export type Reducers = Record<string, ReducerFunction>

@@ -235,7 +235,7 @@
 ### Components
 - Components in syronjs will be a mini-app of its own; have its own internal state & lifecycle, in charge of rendering a part of the view. It communicates with the rest of the  application by emitting events and receive props (data passed to the component from outside), re-rendering its view when a new set of props is passed to it.
 
-## Mounting and Unmounting the vDOM
+### Mounting and Unmounting the vDOM
 - `h()`, `hString()` and `hFragment()` functions create virtual nodes of type `element`, `text` and `fragment` respectively. The virtual nodes are then attached to the DOM using the `mountDOM()` function. When mountDOM() function creates each of the DOM nodes for the virtual DOM it saves a reference to the real DOM node in the vDOM under the `el` (element) property. This is what our `reconciliation algorithm` will use to know what DOM nodes need update.
 
     ![`el` keeping a reference](./docs/el-reference.png)
@@ -243,4 +243,32 @@
 - If the node included `event` listeners, the `mountDOM()` function saves a reference to the event listeners in virtual node, under the `listeners` property. This is what our `reconciliation algorithm` will use to know what event listeners need to be removed.
 
     ![`listeners` keeping a reference](./docs/listeners-reference.png)
+
+## State Manager
+- The state manager is in charge of keeping the application's state in sync with the view, responding to user input by modifying the state accordingly, and notifying the `renderer` when the state has changed.
+- The `renderer` is the entity that takes the virtual DOM and mounts its to the DOM. In [PR #5](https://github.com/Cyrus-0101/syronjs/pull/5), we will work implemmenting the `renderer` and `state manager`. FYI it just looks like a state manager and renderer glued together will work on separating files as we explore.
+- We'll build a small rudimentary state manager that completely destroys and mounts the DOM everytime the state changes.
+
+    ![State Manager](./docs/state-manager.png)
+
+- From the illustration we:
+1. Destory the current DOM (destroyDOM())
+1. Create the virtual DOM representing the view given the current state (View())
+1. Mount the virtual DOM to the DOM (mountDOM())
+
+- This is by no means optimal, but it works for now.
+
+### Events vs Commands
+- `Events` are notifications about something that has happened: 'button clicked', 'key pressed', 'network request completed' etc. The names are usually in past tense like 'button-clicked', 'key-pressed', 'network-request-completed'.
+- A `command` is a request to do somethingina a particular context. 'Add todo', 'Edit todo', 'Delete todo' etc. The names are usually in imperative tense like 'add-todo', 'edit-todo', 'delete-todo'.
+
+- The `dispatch()` function creates a link between the browser events and the commands dispatched by the app dev to the framework.
+
+### Reducer Functions(Redux)
+- A reducer function is a function that takes the current state and a payload (action/command data), and returns a new state. The reducer function is the only place where the state can be modified. The reducer function is a pure function, meaning it does not mutate the state passed to them and return a new state.
+
+### Dispatcher Functions
+- Association between `commands` and `reducer` functions is done by the `dispatcher()`. It is responsible for dispatching the commands to the functions that handle the command. To do this the dev will tell it which handler function(s) to execute in response to each command.
+
+- The command handler functions are `consumers`. Consumer technically means a function that accepts a single parameter, and returns no value.
 
