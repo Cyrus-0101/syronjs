@@ -108,5 +108,5 @@ export type StyleAttributes = Record<string, string>;
 export interface ElementAttributes {
     class?: string
     style?: StyleAttributes
-    [attr: string]: any
+    [attr: string]: unknown
 }
