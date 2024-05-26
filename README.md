@@ -215,6 +215,10 @@ runtime
         ├── h.ts
         └── index.ts
 
+https://github.com/Cyrus-0101/syronjs/assets/46367331/461be10f-caf2-4fca-8142-44f1c82b5443
+
+
+
 - We need to represent 3 types of nodes in the vDOM:
 1. `Element Nodes` - Represents a HTML element that has a tag name such as `div`, `p` etc.
 1. `Text Nodes` - Represents a text node that has a text value.
