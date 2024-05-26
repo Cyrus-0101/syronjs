@@ -206,16 +206,15 @@
 
 - In this [PR #2](https://github.com/Cyrus-0101/syronjs/pull/2), we want to accomplish (Separation of concerns):
 1. Separation of `Application Code` - code that describes the view, from the `Framework Code` - code that uses the Document API to manipulate the DOM and create the view.
-- Here is what our starting structure will look like:
-
-runtime
-    └── src
-        ├── utils
-        │   └── arrays.ts
-        ├── h.ts
-        └── index.ts
-
-
+- Here is what our starting structure will look like
+```sh
+    runtime
+        └── src
+            ├── utils
+            │   └── arrays.ts
+            ├── h.ts
+            └── index.ts
+```
 - We need to represent 3 types of nodes in the vDOM:
 1. `Element Nodes` - Represents a HTML element that has a tag name such as `div`, `p` etc.
 1. `Text Nodes` - Represents a text node that has a text value.
@@ -236,4 +235,12 @@ runtime
 ### Components
 - Components in syronjs will be a mini-app of its own; have its own internal state & lifecycle, in charge of rendering a part of the view. It communicates with the rest of the  application by emitting events and receive props (data passed to the component from outside), re-rendering its view when a new set of props is passed to it.
 
-- As of [PR #2]()
+## Mounting and Unmounting the vDOM
+- `h()`, `hString()` and `hFragment()` functions create virtual nodes of type `element`, `text` and `fragment` respectively. The virtual nodes are then attached to the DOM using the `mountDOM()` function. When mountDOM() function creates each of the DOM nodes for the virtual DOM it saves a reference to the real DOM node in the vDOM under the `el` (element) property. This is what our `reconciliation algorithm` will use to know what DOM nodes need update.
+
+    ![`el` keeping a reference](./docs/el-reference.png)
+
+- If the node included `event` listeners, the `mountDOM()` function saves a reference to the event listeners in virtual node, under the `listeners` property. This is what our `reconciliation algorithm` will use to know what event listeners need to be removed.
+
+    ![`listeners` keeping a reference](./docs/listeners-reference.png)
+

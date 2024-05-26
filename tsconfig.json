@@ -22,15 +22,18 @@
     "noImplicitAny": true,
     // Some stricter flags (disabled by default)
     "noPropertyAccessFromIndexSignature": false
+
   },
+  "typeRoots": ["node_modules/@types", "@types"],
   "include": [
-    "packages/**/*"
+    "packages",
+    "eslint.config.js",
+    "prettier.config.js",
+    "coverage"
   ],
   "exclude": [
-    ".eslintrc.cjs",
     "node_modules",
+    "examples/vanilla",
     "dist",
-    "build",
-    "coverage"
   ]
 }
