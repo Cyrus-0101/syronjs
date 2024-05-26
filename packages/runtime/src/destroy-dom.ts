@@ -1,5 +1,5 @@
-import { removeEventListeners } from "./events";
-import { DOM_TYPES, type VNode } from "./utils/types";
+import { removeEventListeners } from './events';
+import { DOM_TYPES, type VNode } from './utils/types';
 
 /**
  * Destroys the virtual DOM.
@@ -7,24 +7,24 @@ import { DOM_TYPES, type VNode } from "./utils/types";
  * @param vdom VNode
  */
 export const destroyDOM = (vdom: VNode) => {
-     const { type } = vdom;
+    const { type } = vdom;
 
-     switch (type) {
-         case DOM_TYPES.TEXT:
-             removeTextNode(vdom);
-             break;
+    switch (type) {
+    case DOM_TYPES.TEXT:
+        removeTextNode(vdom);
+        break;
 
-         case DOM_TYPES.ELEMENT:
-             removeElementNode(vdom);
-             break;
+    case DOM_TYPES.ELEMENT:
+        removeElementNode(vdom);
+        break;
 
-         case DOM_TYPES.FRAGMENT:
-             removeFragmentNodes(vdom);
-             break;
+    case DOM_TYPES.FRAGMENT:
+        removeFragmentNodes(vdom);
+        break;
 
-         default:
-             break
-     }
+    default:
+        break
+    }
 }
 
 /**
@@ -35,9 +35,7 @@ export const destroyDOM = (vdom: VNode) => {
 const removeTextNode = (vdom: VNode) => {
     const { el } = vdom;
     
-    if (el !== undefined && el.parentNode !== null) {
-        el.parentNode.removeChild(el);
-    }
+    el?.parentNode?.removeChild(el)
 }
 
 /**
@@ -48,14 +46,8 @@ const removeTextNode = (vdom: VNode) => {
 const removeElementNode = (vdom: VNode) => {
     const { el, children, listeners } = vdom;
 
-    if (
-        el !== undefined &&
-        el.parentNode !== null &&
-        children !== undefined
-    ) {
-        el.parentNode.removeChild(el);
-        children.forEach(destroyDOM)
-    }
+    el?.parentNode?.removeChild(el)
+    children?.forEach(destroyDOM)
 
     if (listeners && el !== null) {
         removeEventListeners(listeners, el as HTMLElement)
