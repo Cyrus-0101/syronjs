@@ -44,7 +44,6 @@
 
 - It's worth noting [Svelte does not use the Virtual DOM](https://svelte.dev/blog/virtual-dom-is-pure-overhead), and considers it to be pure overhead.
 
-    
     https://github.com/Cyrus-0101/syronjs/assets/46367331/461be10f-caf2-4fca-8142-44f1c82b5443
 
 - But we'll use the [virtual DOM because its really fast](https://www.youtube.com/watch?v=x7cQ3mrcKaY). The virtual DOM is a lightweight copy of the actual DOM. When the state of the application changes, the virtual DOM is updated instead of the actual DOM. The virtual DOM is then compared to the actual DOM and only the differences are updated. This is what makes the virtual DOM so fast.
