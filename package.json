@@ -10,7 +10,7 @@
   "scripts": {
     "build": "bun build src/index.ts --outdir ./dist",
     "dev": "bun run src/index.ts",
-    "lint": "bun lint .",
+    "lint": "bunx --bun eslint --fix -c eslint.config.js",
     "serve:examples": "bunx http-server . -o ./examples/ -bg"
   },
   "keywords": [
@@ -37,6 +37,7 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-promise": "^6.0.0",
     "globals": "^15.3.0",
+    "prettier": "^3.2.5",
     "typescript-eslint": "^7.10.0"
   },
   "peerDependencies": {
