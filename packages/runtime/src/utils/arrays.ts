@@ -1,4 +1,5 @@
-import { h, hFragment, hString, type VNode } from "../h"
+import { h, hFragment, hString, } from '../h'
+import { type VNode } from './types'
 
 /**
  * @name withoutNulls
