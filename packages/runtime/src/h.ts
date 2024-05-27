@@ -1,5 +1,5 @@
-import { withoutNulls } from './utils/arrays';
 import { DOM_TYPES, type VNode } from './utils/types';
+import { withoutNulls } from './utils/utils';
 
 
 /**
