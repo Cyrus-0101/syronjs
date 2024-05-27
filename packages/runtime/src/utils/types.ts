@@ -140,14 +140,21 @@ export type Handler = (payload: Payload) => void
  * @interface State
  * 
  */
-export type State = Record<string, unknown>;
+export type State = Record<string, object>;
+
+/**
+ * Represents an event emitter.
+ * 
+ * @type EmitFunction
+ */
+export type EmitFunction = (eventName: string, payload: Payload) => void
 
 /**
  * Represents a view function - renderer.
  * 
  * @type {ViewFunction}
  */
-export type ViewFunction = (state: State, emit: Function) => VNode
+export type ViewFunction = (state: State, emit: EmitFunction) => VNode
 
 /**
  * Represents a dispatcher.
