@@ -1,0 +1,43 @@
+{
+  "name": "syronjs-loader",
+  "version": "0.0.1",
+  "description": "SyronJS is a modern component based framework for building semi-complex web applications.",
+  "keywords": [
+    "frontend",
+    "framework",
+    "book",
+    "learning",
+    "web",
+    "development"
+  ],
+  "exports": "./dist/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist/index.js"
+  ],
+  "bugs": {
+    "url": "https://github.com/Cyrus-0101/syronjs/issues"
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir ./dist --splitting --minify-whitespace --minify-identifiers --minify-syntax",
+    "lint": "bunx --bun eslint --fix -c ../../eslint.config.js --ignore-pattern 'dist' --ignore-pattern 'examples/vanilla'",
+    "prepack": "bun run build",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage"
+  },
+  "author": "Cyrus Ndirangu",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@vitest/coverage-v8": "^1.6.0",
+    "eslint": "^9.3.0",
+    "jsdom": "^24.1.0",
+    "vitest": "^1.3.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "type": "module"
+}
