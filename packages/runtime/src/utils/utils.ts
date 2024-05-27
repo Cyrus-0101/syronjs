@@ -1,5 +1,5 @@
-import { h, hFragment, hString } from "../h";
-import type { VNode } from "./types";
+import { h, hFragment, hString } from '../h';
+import type { VNode } from './types';
 
 /**
  * @name MessageComponent
