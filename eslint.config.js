@@ -3,6 +3,7 @@ import eslint from '@eslint/js';
 import tsParser from '@typescript-eslint/parser';
 import esLintConfigPrettier from 'eslint-config-prettier';
 import jsdoc from 'eslint-plugin-jsdoc';
+import globals from 'globals';
 import { config, configs } from 'typescript-eslint';
 
 export default config(
@@ -15,6 +16,11 @@ export default config(
     {
         // ignores: ['dist/**', 'examples/vanilla/**'],
         languageOptions: {
+            ecmaVersion: 'latest',
+            sourceType: 'module',
+            globals: {
+                ...globals.browser,
+            },
             parser: tsParser,
             parserOptions: {
                 project: ['./tsconfig.json', 'tsconfig.eslint.json'],
