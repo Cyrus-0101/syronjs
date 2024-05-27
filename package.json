@@ -8,11 +8,11 @@
     "name": "Cyrus N."
   },
   "scripts": {
-    "build": "bun build src/index.ts --outdir ./dist",
-    "dev": "bun run src/index.ts",
-    "lint": "bunx --bun eslint --fix -c eslint.config.js --ignore-pattern 'dist' --ignore-pattern 'examples/vanilla'",
-    "serve:examples": "bunx http-server . -o ./examples/ -bg"
+  "serve:examples": "bunx http-server . -o ./examples/ -bg"
   },
+  "workspaces": [
+    "packages/runtime"
+  ],
   "keywords": [
     "syronjs",
     "ssr",
@@ -44,8 +44,5 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "syronjs": "."
   }
 }
