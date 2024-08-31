@@ -1,26 +1,22 @@
-import type { Payload } from './utils/types'
 
 /**
  * Dispatcher is a simple event bus that allows to subscribe to commands and
  * dispatch them.
  */
 export class Dispatcher {
-    #subs = new Map<string, ((payload: Payload) => void)[]>()
-    #afterHandlers: (() => void)[] = []
+    #subs = new Map<any, any>()
+    #afterHandlers: any = []
 
     /**
      * Dispatches a command to all subscribed handlers.
      * @param commandName Command name.
      */
-    afterEveryCommand = (handler: () => void): (() => void) => {
+    afterEveryCommand = (handler: any) => {
         this.#afterHandlers.push(handler)
 
         return () => {
             const idx = this.#afterHandlers?.indexOf(handler)
-
-            if (idx !== undefined) {
-                this.#afterHandlers?.splice(idx, 1)
-            }
+            this.#afterHandlers?.splice(idx, 1)
         }
     }
 
@@ -28,21 +24,21 @@ export class Dispatcher {
      * Dispatches a command to all subscribed handlers.
      * @param commandName Command name.
      */
-    dispatch(commandName: string, payload: Payload): void {
+    dispatch(commandName: string, payload: any) {
         if (this.#subs.has(commandName)) {
-            this.#subs.get(commandName)?.forEach((handler) => handler(payload))
+            this.#subs.get(commandName).forEach((handler: any) => handler(payload))
         } else {
             console.warn(`No handlers for command ${commandName}`)
         }
 
-        this.#afterHandlers.forEach((handler) => handler())
+        this.#afterHandlers.forEach((handler: any) => handler())
     }
 
     /**
      * Dispatches a command to all subscribed handlers.
      * @param commandName Command name.
      */
-    subscribe(commandName: string, handler: (payload: Payload) => void): () => void {
+    subscribe(commandName: string, handler: any) {
         if (!this.#subs.has(commandName)) {
             this.#subs.set(commandName, [])
         }
@@ -60,9 +56,7 @@ export class Dispatcher {
         return () => {
             const idx = handlers?.indexOf(handler)
 
-            if (idx !== undefined) {
-                handlers?.splice(idx, 1)
-            }
+            handlers?.splice(idx, 1)
         }
     }
 }

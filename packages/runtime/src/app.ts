@@ -1,8 +1,6 @@
-import { destroyDOM } from './destroy-dom';
-import { Dispatcher } from './dispatcher';
-import { mountDOM } from './mount-dom';
-import type { Payload, Reducers, State, ViewFunction, VNode } from './utils/types';
-
+import { destroyDOM } from './destroy-dom'
+import { Dispatcher } from './dispatcher'
+import { mountDOM } from './mount-dom'
 
 /**
  * @name createApp
@@ -10,9 +8,17 @@ import type { Payload, Reducers, State, ViewFunction, VNode } from './utils/type
  * @param view ViewFunction
  * @description - Creates an application instance.
  */
-export const createApp = ({ state, view, reducers = {}}: { state: State, view: ViewFunction, reducers: Reducers }) => {
-    let parentEl: HTMLElement | null = null
-    let vdom: VNode | null = null
+export const createApp = ({
+    state,
+    view,
+    reducers = {},
+}: {
+    state: any
+    view: any
+    reducers: any
+}) => {
+    let parentEl: any = null
+    let vdom: any = null
 
     const dispatcher = new Dispatcher()
 
@@ -22,7 +28,7 @@ export const createApp = ({ state, view, reducers = {}}: { state: State, view: V
      * @param eventName string
      * @param payload Payload
      */
-    const emit = (eventName: string, payload: Payload) => {
+    const emit = (eventName: any, payload: any) => {
         dispatcher.dispatch(eventName, payload)
     }
 
@@ -37,9 +43,7 @@ export const createApp = ({ state, view, reducers = {}}: { state: State, view: V
 
         vdom = view(state, emit)
 
-        if (parentEl && vdom) {
-            mountDOM(vdom, parentEl)
-        }
+        mountDOM(vdom, parentEl)
     }
 
     const subscriptions = [dispatcher.afterEveryCommand(renderApp)]
@@ -47,7 +51,7 @@ export const createApp = ({ state, view, reducers = {}}: { state: State, view: V
     for (const actionName in reducers) {
         const reducer = reducers[actionName]
 
-        const subs = dispatcher.subscribe(actionName, (payload: Payload) => {
+        const subs = dispatcher.subscribe(actionName, (payload: any) => {
             state = reducer(state, payload)
         })
 
@@ -55,20 +59,16 @@ export const createApp = ({ state, view, reducers = {}}: { state: State, view: V
     }
 
     return {
-        mount(_parentEl: HTMLElement | null) {
+        mount(_parentEl: any) {
             parentEl = _parentEl
             renderApp()
         },
-        
-        unmount(){
-            if (vdom) {
-                destroyDOM(vdom)
-            }
 
-            vdom = null;
-            
+        unmount() {
+            destroyDOM(vdom)
+
+            vdom = null
             subscriptions.forEach((unsubscribe) => unsubscribe())
-        }
+        },
     }
 }
-    

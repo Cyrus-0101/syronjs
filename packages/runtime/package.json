@@ -1,6 +1,6 @@
 {
   "name": "syronjs-runtime",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "SyronJS is a modern component based framework for building semi-complex web applications.",
   "keywords": [
     "frontend",
@@ -39,5 +39,8 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "syronjs-runtime": "."
+  }
 }

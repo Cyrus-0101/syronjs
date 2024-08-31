@@ -42,7 +42,7 @@ export interface VNode {
     /**
      * Represents the children of the virtual DOM node.
      */
-    children?: VNode[];
+    children?: any;
     /**
      * Represents the value of the virtual DOM node.
      */
@@ -50,11 +50,11 @@ export interface VNode {
     /**
      * Represents the real DOM node.
      */
-    el?: Node | HTMLElement | null;
+    el?: any;
     /**
      * Represents the event listeners of the virtual DOM node.
      */
-    listeners?: Record<string, (e: Event) => void>
+    listeners?: any
 }
 
 /**
@@ -84,7 +84,7 @@ export const DOM_TYPES: DOM_TYPES = {
  * @description Props Represents the props of a virtual DOM node.
  */
 export interface Props {
-    on?: Record<string, (e: Event) => void>
+
 }
 
 /**
@@ -94,7 +94,7 @@ export interface Props {
  * @interface StyleAttributes
  * @property {string} [prop] - The property of the style attribute.
  */
-export type StyleAttributes = Record<string, string>;
+export type StyleAttributes = any;
 
 /**
  * Represents the attributes of an HTML element.
@@ -105,34 +105,21 @@ export type StyleAttributes = Record<string, string>;
  * @property {StyleAttributes} [style] - The style of the HTML element.
  * @property {any} [attr] - The attributes of the HTML element.
  */
-export interface ElementAttributes {
-    class?: string
-    style?: StyleAttributes
-    [attr: string]: unknown
-}
+export type ElementAttributes = any;
 
 /**
  * Represents the payload of a command.
  * 
  * @interface Payload
  */
-export interface Payload {
-    /**
-     * Represents the name of the command.
-     */
-    name: string;
-    /**
-     * Represents the data of the command.
-     */
-    data?: object;
-}
+export type Payload = any;
 
 /**
  * Represents a handler function.
  * 
  * @type {Handler}
  */
-export type Handler = (payload: Payload) => void
+export type Handler = any;
 
 /**
  * Represents a command name.
@@ -140,21 +127,21 @@ export type Handler = (payload: Payload) => void
  * @interface State
  * 
  */
-export type State = Record<string, object>;
+export type State = any;
 
 /**
  * Represents an event emitter.
  * 
  * @type EmitFunction
  */
-export type EmitFunction = (eventName: string, payload: Payload) => void
+export type EmitFunction = any;
 
 /**
  * Represents a view function - renderer.
  * 
  * @type {ViewFunction}
  */
-export type ViewFunction = (state: State, emit: EmitFunction) => VNode
+export type ViewFunction = any;
 
 /**
  * Represents a dispatcher.
@@ -167,7 +154,7 @@ export interface App {
      * 
      * @param {HTMLElement | null} _parentEl - The parent element to mount the application.
      */
-    mount: (_parentEl: HTMLElement | null) => void
+    mount: any;
 }
 
 /**
@@ -177,11 +164,11 @@ export interface App {
  * 
  * 
  */
-export type ReducerFunction = (state: State, payload: Payload) => State
+export type ReducerFunction = any;
 
 /**
  * Represents a record of reducers.
  * 
  * @type Reducers 
  */
-export type Reducers = Record<string, ReducerFunction>
+export type Reducers = any

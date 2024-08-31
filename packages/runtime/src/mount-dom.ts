@@ -1,6 +1,6 @@
-import { setAttributes } from './attributes';
-import { addEventListeners } from './events';
-import { DOM_TYPES, type Props, type VNode } from './utils/types';
+import { setAttributes } from './attributes'
+import { addEventListeners } from './events'
+import { DOM_TYPES } from './utils/types'
 
 /**
  * @name mountDOM
@@ -8,23 +8,23 @@ import { DOM_TYPES, type Props, type VNode } from './utils/types';
  * @param parentEl HTMLElement
  * @description - Used to mount the virtual DOM to the browser's document.
  */
-export const mountDOM = (vdom: VNode, parentEl: HTMLElement) => {
+export const mountDOM = (vdom: any, parentEl: any) => {
     switch (vdom.type) {
-    case DOM_TYPES.TEXT:
-        createTextNode(vdom, parentEl);
-        break;
+        case DOM_TYPES.TEXT:
+            createTextNode(vdom, parentEl)
+            break
 
-    case DOM_TYPES.ELEMENT:
-        createElementNode(vdom, parentEl);
-        break;
+        case DOM_TYPES.ELEMENT:
+            createElementNode(vdom, parentEl)
+            break
 
-    case DOM_TYPES.FRAGMENT:
-        createFragmentNodes(vdom, parentEl);
-        break;
+        case DOM_TYPES.FRAGMENT:
+            createFragmentNodes(vdom, parentEl)
+            break
 
-    default: {
-        throw new Error(`Can't mount DOM of type: ${vdom.type}`)
-    }
+        default: {
+            throw new Error(`Can't mount DOM of type: ${vdom.type}`)
+        }
     }
 }
 
@@ -34,15 +34,13 @@ export const mountDOM = (vdom: VNode, parentEl: HTMLElement) => {
  * @param parentEl HTMLElement
  * @description - creates a text node the Document API provides and stores a reference to the real DOM
  */
-const createTextNode = (vdom: VNode, parentEl: HTMLElement) => {
-    const { value } =  vdom;
+const createTextNode = (vdom: any, parentEl: any) => {
+    const { value } = vdom
 
-    if (value !== undefined) {
-        const textNode = document.createTextNode(value)
-        vdom.el = textNode
+    const textNode = document.createTextNode(value)
+    vdom.el = textNode
 
-        parentEl.append(textNode)
-    }
+    parentEl.append(textNode)
 }
 
 /**
@@ -51,30 +49,28 @@ const createTextNode = (vdom: VNode, parentEl: HTMLElement) => {
  * @param parentEl HTMLElement
  * @description -
  */
-const createElementNode = (vdom: VNode, parentEl: HTMLElement) => {
-    const { tag, props, children } = vdom;
+const createElementNode = (vdom: any, parentEl: any) => {
+    const { tag, props, children } = vdom
 
-    if (tag && children && props !== undefined) {
-        const element = document.createElement(tag);
-        addProps(element, props, vdom);
-        vdom.el = element;
+    const element = document.createElement(tag)
+    addProps(element, props, vdom)
+    vdom.el = element
 
-        children.forEach((child) => mountDOM(child, element))
-        parentEl.append(element)
-    }
+    children.forEach((child: any) => mountDOM(child, element))
+    parentEl.append(element)
 }
 
 /**
  * @name createFragmentNodes
  * @param vdom VNode
  * @param parentEl HTMLElement
- * @description - 
+ * @description -
  */
-const createFragmentNodes = (vdom: VNode, parentEl: HTMLElement) => {
-    const { children } = vdom;
+const createFragmentNodes = (vdom: any, parentEl: any) => {
+    const { children } = vdom
     vdom.el = parentEl
 
-    children?.forEach((child) => mountDOM(child, parentEl))
+    children.forEach((child: any) => mountDOM(child, parentEl))
 }
 
 /**
@@ -82,13 +78,12 @@ const createFragmentNodes = (vdom: VNode, parentEl: HTMLElement) => {
  * @param el HTMLElement
  * @param props object
  * @param vdom VNode
-* @description - 
+ * @description -
  */
-const addProps = (el: HTMLElement, props: Props, vdom: VNode) => {
-    const { on: events, ...attrs } = props;
+const addProps = (el: any, props: any, vdom: any) => {
+    const { on: events, ...attrs } = props
 
-    vdom.listeners = addEventListeners(events, el);
+    vdom.listeners = addEventListeners(events, el)
 
     setAttributes(el, attrs)
-
 }

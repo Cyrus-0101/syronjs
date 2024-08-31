@@ -1,30 +1,33 @@
 import { removeEventListeners } from './events';
-import { DOM_TYPES, type VNode } from './utils/types';
+import { DOM_TYPES } from './utils/types';
 
 /**
  * Destroys the virtual DOM.
  * 
  * @param vdom VNode
  */
-export const destroyDOM = (vdom: VNode) => {
+export const destroyDOM = (vdom: any) => {
     const { type } = vdom;
 
     switch (type) {
-    case DOM_TYPES.TEXT:
-        removeTextNode(vdom);
-        break;
+        case DOM_TYPES.TEXT:
+            removeTextNode(vdom);
+            break;
 
-    case DOM_TYPES.ELEMENT:
-        removeElementNode(vdom);
-        break;
+        case DOM_TYPES.ELEMENT:
+            removeElementNode(vdom);
+            break;
 
-    case DOM_TYPES.FRAGMENT:
-        removeFragmentNodes(vdom);
-        break;
+        case DOM_TYPES.FRAGMENT:
+            removeFragmentNodes(vdom);
+            break;
 
-    default:
-        break
+        default: {
+            throw new Error(`Can't destroy DOM of type: ${type}`);
+        }
     }
+
+    delete vdom.el;
 }
 
 /**
@@ -32,10 +35,10 @@ export const destroyDOM = (vdom: VNode) => {
  * 
  * @param vdom VNode
  */
-const removeTextNode = (vdom: VNode) => {
+const removeTextNode = (vdom: any) => {
     const { el } = vdom;
     
-    el?.parentNode?.removeChild(el)
+    el.remove();
 }
 
 /**
@@ -43,14 +46,14 @@ const removeTextNode = (vdom: VNode) => {
  * 
  * @param vdom VNode
  */
-const removeElementNode = (vdom: VNode) => {
+const removeElementNode = (vdom: any) => {
     const { el, children, listeners } = vdom;
 
-    el?.parentNode?.removeChild(el)
-    children?.forEach(destroyDOM)
+    el.remove();
+    children.forEach(destroyDOM);
 
-    if (listeners && el !== null) {
-        removeEventListeners(listeners, el as HTMLElement)
+    if (listeners) {
+        removeEventListeners(listeners, el);
         delete vdom.listeners;
     }
 }
@@ -60,11 +63,9 @@ const removeElementNode = (vdom: VNode) => {
  * 
  * @param vdom VNode
  */
-const removeFragmentNodes = (vdom: VNode) => {
+const removeFragmentNodes = (vdom: any) => {
     const { children } = vdom;
     
-    if (children !== undefined) {
-        children.forEach(destroyDOM);
-    }
+    children.forEach(destroyDOM)
 }
 

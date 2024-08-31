@@ -1,4 +1,3 @@
-import type { ElementAttributes } from './utils/types';
 
 /**
  * Sets the attributes of a given HTML element.
@@ -6,7 +5,7 @@ import type { ElementAttributes } from './utils/types';
  * @param el - The HTML element to set the attributes for.
  * @param attrs - An object where the keys are attribute names and the values are the attribute values.
  */
-export function setAttributes(el: HTMLElement, attrs: ElementAttributes): void {
+export function setAttributes(el: any, attrs: any) {
     const { class: className, style, ...otherAttrs } = attrs;
 
     if (className) {
@@ -15,7 +14,7 @@ export function setAttributes(el: HTMLElement, attrs: ElementAttributes): void {
 
     if (style) {
         Object.entries(style).forEach(([prop, value]) => {
-            setStyle(el, prop, value);
+            setStyle(el, prop, value as any);
         });
     }
 
@@ -32,7 +31,7 @@ export function setAttributes(el: HTMLElement, attrs: ElementAttributes): void {
  * @param el - The HTML element to set the class for.
  * @param className - The class to set.
  */
-const setClass = (el: HTMLElement, className: string) => {
+const setClass = (el: any, className: any) => {
     el.className = ''
     
     if (typeof className === 'string') {
@@ -51,8 +50,8 @@ const setClass = (el: HTMLElement, className: string) => {
  * @param name - The name of the attribute to set.
  * @param value - The value to set the attribute to.
  */
-const setStyle = (el: HTMLElement, name: string, value: string) => {
-    el.style.setProperty(name, value);
+const setStyle = (el: any, name: string, value: any) => {
+    el.style[name] = value;
 }
 
 /**
@@ -62,8 +61,8 @@ const setStyle = (el: HTMLElement, name: string, value: string) => {
  * @param style - An object where the keys are style properties and the values are the style values.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const removeStyle = (el: HTMLElement, name: string) => {
-    el.style.removeProperty(name);
+const removeStyle = (el: any, name: string) => {
+    el.styl[name] = null;
 }
 
 /**
@@ -73,14 +72,14 @@ const removeStyle = (el: HTMLElement, name: string) => {
  * @param name - The name of the attribute to set.
  * @param value - The value to set the attribute to.
  */
-const setAttribute = (el: HTMLElement, name: string, value: string) => {
+const setAttribute = (el: any, name: string, value: any) => {
     if (value == null) {
         removeAttribute(el, name);
+    } else if (name.startsWith('data-')) {
+        el.setAttribute(name, value)
     } else {
-        if (name.startsWith('data-')) {
-            el.setAttribute(name, value)
-        }
-    } 
+        el[name] = value
+    }
 }
 /**
  * Removes an attribute from a given HTML element.
@@ -88,6 +87,7 @@ const setAttribute = (el: HTMLElement, name: string, value: string) => {
  * @param el string
  * @param name string
  */
-const removeAttribute = (el: HTMLElement, name: string) => {
-    el.removeAttribute(name);
+const removeAttribute = (el: any, name: any) => {
+    el[name] = null;
+    el.removeAttribute();
 }
